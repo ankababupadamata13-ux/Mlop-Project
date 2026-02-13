@@ -1,0 +1,12 @@
+venv/
+__pycache__/
+*.pyc
+*.pyd
+*.dll
+*.exe
+*.csv
+*.pkl
+*.joblib
+.ipynb_checkpoints/
+.env
+
