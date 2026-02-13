@@ -1,10 +1,7 @@
-venv/
+artifacts/
+data.csv
+model.pkl
+notebook/
+logs/
 __pycache__/
 *.pyc
-*.pkl
-*.ipynb
-*.log
-*.csv
-artifacts/
-logs/
-mlops_project.egg-info/
