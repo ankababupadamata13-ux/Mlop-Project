@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mlops-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mlops-app
+  template:
+    metadata:
+      labels:
+        app: mlops-app
+    spec:
+      containers:
+      - name: alops-app
+        image: us-centrall-docker.pkg.dev/mlops-new-447207/mlops-app/mlops-app:latest
+        ports:
+        - containerPort: 5000
+
+
+----
+apiversion:v1
+kind: Service
+metadata:
+    name: mlops-service
+Spec:
+Selector:
+app: mlops-app
+ports:
+    -protocol: TCP
+    port: 80
+    targetport: 5000
+    type: LoadBalancer
