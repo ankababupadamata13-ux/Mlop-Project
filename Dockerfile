@@ -1,13 +1,11 @@
-FROM python:3.12
+FROM python:3.9
 
 WORKDIR /app
 
-COPY requirements.txt .
-
-RUN pip install -r requirements.txt
-
 COPY . .
+
+RUN pip install -r requirements
 
 EXPOSE 5000
 
-CMD ["python", "application.py"]
+CMD ["python","application.py"]
