@@ -5,6 +5,10 @@ executors:
     docker:
       - image: google/cloud-sdk:latest
     working_directory: ~/repo
+  machine-executor:
+    machine:
+      image: ubuntu-2204:current
+    working_directory: ~/repo
 
 jobs:
   checkout_code:
@@ -13,10 +17,17 @@ jobs:
       - checkout
 
   build_docker_image:
-    executor: docker-executor
+    executor: machine-executor
     steps:
       - checkout
-      - setup_remote_docker
+      - run:
+          name: Install Google Cloud SDK
+          command: |
+              if ! command -v gcloud &> /dev/null; then
+                curl -sSL https://sdk.cloud.google.com | bash -s -- --disable-prompts
+                source ~/google-cloud-sdk/path.bash.inc
+                echo 'source ~/google-cloud-sdk/path.bash.inc' >> $BASH_ENV
+              fi
       - run:
           name: Authenticate with google cloud
           command: |
