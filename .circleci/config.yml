@@ -25,6 +25,10 @@ jobs:
               gcloud auth configure-docker us-central1-docker.pkg.dev || gcloud auth configure-docker
 
       - run:
+          name: Install Docker CLI
+          command: |
+              apt-get update -y && apt-get install -y docker.io
+      - run:
           name: Build and Push Image
           command: |
               docker build -t us-central1-docker.pkg.dev/$GOOGLE_PROJECT_ID/mlops-app/mlops-app:latest .
