@@ -3,7 +3,6 @@ version: 2.1
 executors:
   docker-executor:
     docker:
-      # cimg/gcp lo Docker, gcloud, and kubectl anni pre-installed untayi
       - image: cimg/gcp:2024.01
     working_directory: ~/repo
 
@@ -24,13 +23,11 @@ jobs:
           at: ~/repo
       - setup_remote_docker:
           version: 20.10.24
-          docker_layer_caching: true
       - run:
           name: Authenticate with google cloud
           command: |
             echo "$GCLOUD_SERVICE_KEY" | base64 --decode > gcp-key.json
             gcloud auth activate-service-account --key-file=gcp-key.json
-            # artifact registry authentication
             gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
       - run:
           name: Build and Push Image
